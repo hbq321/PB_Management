@@ -10,7 +10,7 @@
 <html lang="zh-cn">
 <head>
 <meta charset="UTF-8">
-<title>我的基地</title>
+<title>湖南农业大学基地实习综合管理系统</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <meta name="renderer" content="webkit">
@@ -46,17 +46,21 @@
 						class="icon-align-justify"></i></a></li>
 			</ul>
 
-			<span class="teachCenterTitle">基地管理系统</span>
+			<span class="teachCenterTitle">基地实习综合管理系统</span>
 			<!-- Navbar Left -->
 
 			<!-- Navbar Right -->
 			<div class="navbar-right">
 				<!-- Notifications -->
 				<ul class="notifications" avalonctrl="subNotificationsController">
+					<li class="hidden-sm hidden-xs"><a data-toggle="modal" data-target="#help"
+						class="dropdown-toggle notification-icon"> <i
+							class="glyphicon glyphicon-question-sign"><span class="badge"></span></i> <!--ms-if-->
+					</a></li>
 					<li class="hidden-sm hidden-xs"><a href="getMessage.do"
 						class="dropdown-toggle notification-icon"> <i
 							class="icon-envelope"><span class="badge msg"></span></i> <!--ms-if-->
-					</a>
+					</a></li>
 					<li><a href="../loginout.do"
 						class="dropdown-toggle notification-icon"> <i
 							class="icon-remove"></i>
@@ -78,8 +82,7 @@
 				<div class="sidebar-collapse">
 					<!-- Sidebar Header Logo-->
 					<div class="sidebar-header ">
-						<a href="#" target="_blank"><img
-							src="../image/manage-logo.png" alt=""></a>
+						<a href="index.do"><img src="../image/manage-logo.png" alt=""></a>
 					</div>
 
 					<!-- Sidebar Menu-->
@@ -106,54 +109,72 @@
 										<i class="icon-copy" aria-hidden="true"></i><span>我的工作</span>
 								</a>
 									<ul class="nav nav-children">
+										<li><a href="field-rent.jsp"><span class="text"></span>土地租赁</a></li>
+										<li><a href="baseApply.jsp"><span class="text"></span>基地申报</a></li>
+										<li><a href="Repairpply.jsp"><span class="text"></span>报修申请</a></li>
+										<li><a href="practiapply.jsp"><span class="text"></span>实习申请</a></li>
 										<li><a href="myRent.jsp"><span class="text">我的租赁</span></a></li>
-										
-										<li><a href="myrepair.jsp"><span class="text">我的报修</span></a></li>
 										<li><a href="myBase.jsp"><span class="text">我的基地</span></a></li>
+										<li><a href="myrepair.jsp"><span class="text">我的报修</span></a></li>
 									</ul></li>
 
-								<li class="menuItem nav-parent"><a> <i
-										class="icon-copy" aria-hidden="true"></i><span>审批工作</span>
+								<li class="menuItem nav-parent"
+									${(visitRight[0]==0&&visitRight[1]==0&&visitRight[2]==0)?"style='display:none;'":" "}>
+									<a> <i class="icon-copy" aria-hidden="true"></i><span>审批工作</span>
 								</a>
 									<ul class="nav nav-children">
-										<li><a href="rent-approve.jsp"><span class="text">租赁审批</span></a></li>
-										
-										<li><a href="baseCheck.jsp"><span class="text">基地审批</span></a></li>
-										<li><a href="repairApprove.jsp"><span class="text">维修审批</span></a></li>
+										<li ${visitRight[0]==0?"style='display:none;'":" "}><a
+											href="rent-approve.jsp"><span class="text">租赁审批</span></a></li>
 
-									</ul></li>
+										<li ${visitRight[2]==0?"style='display:none;'":" "}><a
+											href="baseCheck.jsp"><span class="text">基地审批</span></a></li>
+										<li ${visitRight[1]==0?"style='display:none;'":" "}><a
+											href="repairApprove.jsp"><span class="text">维修审批</span></a></li>
 
-								<li class="menuItem nav-parent"><a> <i
-										class="icon-copy" aria-hidden="true"></i><span>数据管理</span>
+									</ul>
+								</li>
+
+								<li class="menuItem nav-parent"
+									${(visitRight[3]==0&&visitRight[4]==0&&visitRight[5]==0&&visitRight[6]==0&&visitRight[7]==0&&visitRight[8]==0&&visitRight[9]==0&&visitRight[10]==0&&visitRight[11]==0&&visitRight[13]==0)?"style='display:none;'":" "}>
+									<a> <i class="icon-copy" aria-hidden="true"></i><span>数据管理</span>
 								</a>
 									<ul class="nav nav-children">
-										<li><a href="notification.do"><span class="text">
-													发布通知公告</span></a></li>
-										<li><a href="land_modle.jsp"><span class="text">
-													土地布局设置</span></a></li>
-										<li><a href="fieldRent_maintain.jsp"><span
-												class="text"> 土地租赁维护</span></a></li>
-										<li><a href="baseMaintain.jsp"><span class="text">
-													实习基地维护</span></a></li>
-										<li><a href="Repairmanage.jsp"><span class="text">
-													报修信息维护</span></a></li>
-										<li><a href="practicePlanMaintain.jsp"><span class="text"> 实习计划维护</span></a></li>
-										<li><a href="start.jsp"><span class="text">
-													工作计划制定</span></a></li>
-										<li><a href="mangeruser.jsp"><span class="text">
-													系统用户维护</span></a></li>
-										<li><a href="system_power.jsp"><span class="text">
-													系统权限设置</span></a></li>
-									</ul></li>
-								<li class="menuItem nav-parent"><a> <i
+										<li ${visitRight[3]==0?"style='display:none;'":" "}><a
+											href="notification.do"><span class="text"> 发布通知公告</span></a></li>
+										<li ${visitRight[4]==0?"style='display:none;'":" "}><a
+											href="land_modle.jsp"><span class="text"> 土地布局设置</span></a></li>
+										<li ${visitRight[6]==0?"style='display:none;'":" "}><a
+											href="fieldRent_maintain.jsp"><span class="text">
+													土地租赁维护</span></a></li>
+										<li ${visitRight[5]==0?"style='display:none;'":" "}><a
+											href="baseMaintain.jsp"><span class="text"> 实习基地维护</span></a></li>
+										<li ${visitRight[13]==0?"style='display:none;'":" "}><a
+											href="Professionalmanage.jsp"><span class="text"> 实习专业维护</span></a></li>
+										<li ${visitRight[11]==0?"style='display:none;'":" "}><a
+											href="Repairmanage.jsp"><span class="text"> 报修信息维护</span></a></li>
+										<li ${visitRight[7]==0?"style='display:none;'":" "}><a
+											href="practicePlanMaintain.jsp"><span class="text">
+													实习计划维护</span></a></li>
+										<li ${visitRight[10]==0?"style='display:none;'":" "}><a
+											href="start.jsp"><span class="text"> 租赁计划制定</span></a></li>
+										<li ${visitRight[8]==0?"style='display:none;'":" "}><a
+											href="mangeruser.jsp"><span class="text"> 系统用户维护</span></a></li>
+										<li ${visitRight[9]==0?"style='display:none;'":" "}><a
+											href="system_power.jsp"><span class="text"> 系统权限设置</span></a></li>
+									</ul>
+								</li>
+								<li class="menuItem nav-parent"
+									${visitRight[12]==0?"style='display:none;'":" "}><a> <i
 										class="icon-copy" aria-hidden="true"></i><span>统计分析</span>
 								</a>
 									<ul class="nav nav-children">
-										<li><a href="#"><span class="text">租赁统计</span></a></li>
-										<li><a href="#"><span class="text">实习分析</span></a></li>
-										<li><a href="#"><span class="text">实习基地统计</span></a></li>
-									</ul></li>
 
+										<li ${visitRight[12]==0?"style='display:none;'":" "}><a
+											href="statisticData.jsp"><span class="text">实习分析</span></a></li>
+
+									</ul></li>
+								<li><a href="#"> <i class="icon-copy"
+										aria-hidden="true"></i><span>集中实习在线课堂</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -182,11 +203,12 @@
 					<div class="pull-right">
 						<ol class="breadcrumb visible-sm visible-md visible-lg wz">
 							<li><a href="baseApply.jsp"><i class=" icon-building"></i>基地申报</a></li>
-							<li><a href="field-rent.jsp"><i class="icon-legal"></i>土地租赁</a></li>
-							<li><a href="practiapply.jsp"><i class="icon-user"></i>实习申请</a></li>
-							<li><a href="Repairpply.jsp"><i class="icon-home"></i>报修申请</a></li>
+                                <li><a href="field-rent.jsp"><i class="icon-legal"></i>土地租赁</a></li>
+                                <li><a href="practiapply.jsp"><i class="icon-user"></i>实习申请</a></li>
+                                <li><a href="Repairpply.jsp"><i class="icon-home"></i>报修申请</a></li>
 						</ol>
 					</div>
+
 				</div>
 				<!-- 主面板内容 -->
 				<div class="row form">
@@ -198,9 +220,9 @@
 									<th>基地名称</th>
 									<th>基地类型</th>
 									<th>申报部门</th>
-									<th>土地面积</th>
-									<th>建筑面积</th>
-									<th>可承担人数</th>
+									<th>法定责任人</th>
+									<th>基地联系人</th>
+									<th>基地联系人电话</th>
 									<th hidden>通信地址</th>
 									<th hidden>法定责任人</th>
 									<th hidden>联系人姓名</th>
@@ -231,7 +253,8 @@
 								<div class="modal-content" style="border:#4D719B 8px solid">
 									<div class="modal-header"
 										style="background:#4D719B; color:#FFF">
-										<div class="glyphicon glyphicon-remove closeModal" data-dismiss="modal" ></div>
+										<div class="glyphicon glyphicon-remove closeModal"
+											data-dismiss="modal"></div>
 										<h4 class="modal-title" id="myModalLabel"></h4>
 									</div>
 									<div class="modal-body" style="text-align: left;">
@@ -252,12 +275,13 @@
 					</div>
 
 					<!--弹出框-->
-					<div class="modal fade" id="fontTable" tabindex="-1" role="dialog"
+					<div class="modal fade" id="fontTable_0" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content" style="border:#3071a9 8px solid">
 								<div class="modal-header" style="background:#3071a9; color:#FFF">
-									<div class="glyphicon glyphicon-remove closeModal" data-dismiss="modal" ></div>
+									<div class="glyphicon glyphicon-remove closeModal"
+										data-dismiss="modal"></div>
 									<h4 class="modal-title text-center" id="myModalLabel">基地申请详情</h4>
 								</div>
 
@@ -279,8 +303,6 @@
 													<td><input type="text" id="dept0" disabled></td>
 
 												</tr>
-
-
 												<tr>
 													<td>土地面积 ：</td>
 													<td><input type="text" id="landarea" disabled /></td>
@@ -291,19 +313,23 @@
 												<tr>
 													<td>可承担人数 ：</td>
 													<td><input type="text" id="undertakeCount" disabled></td>
-													<td>联系人姓名 ：</td>
-													<td><input type="text" id="username" disabled></td>
-
-												</tr>
-												<tr>
-													<td>联系人电话 ：</td>
-													<td><input type="text" id="userphone" disabled></td>
 													<td>法定责任人 ：</td>
 													<td colspan="3"><input type="text" id="dutyPerson"
 														disabled></td>
-
 												</tr>
-												
+												<tr>
+												    <td>基地联系人 ：</td>
+													<td><input type="text" id="username" disabled></td>
+													<td>基地联系人电话 ：</td>
+													<td><input type="text" id="userphone" disabled></td>													
+												</tr>
+												<tr>
+												    <td>学院联系人 ：</td>
+													<td><input type="text" id="collegename" disabled></td>
+													<td>学院联系人电话 ：</td>
+													<td><input type="text" id="collegephone" disabled></td>													
+												</tr>
+
 												<tr hidden id="hidecol">
 													<td>创建日期：</td>
 													<td><input type="text" id="setdate" disabled></td>
@@ -312,14 +338,16 @@
 												</tr>
 												<tr>
 													<td>面向专业 ：</td>
-													<td colspan="3" style="text-align:left;"><div id="major_oriented"
+													<td colspan="3" style="text-align:left;"><div
+															id="major_oriented"
 															style="border:#ccc 1px solid;height:80px;"></div></td>
 
 												</tr>
 
 												<tr>
 													<td>通信地址 ：</td>
-													<td colspan="3"  style="text-align:left;"><div id="linkAddress"
+													<td colspan="3" style="text-align:left;"><div
+															id="linkAddress"
 															style="border:#ccc 1px solid;height:80px;"></div></td>
 
 												</tr>
@@ -327,8 +355,8 @@
 
 												<tr hidden id="hideReason">
 													<td>拒绝理由 ：</td>
-													<td colspan="3" style="text-align:left;"><div id="reason"
-															style="border:#ccc 1px solid;height:80px;"></div></td>
+													<td colspan="3" style="text-align:left;"><div
+															id="reason" style="border:#ccc 1px solid;height:80px;"></div></td>
 
 												</tr>
 
@@ -342,19 +370,127 @@
 									</div>
 								</div>
 								<div class="modal-footer table-responsive">
-									<button type="button" class="btn btn-primary" id="closeDe">关闭</button>
+									<button type="button" class="btn btn-primary" id="closeDe" data-dismiss="modal">关闭</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!--弹出框-->
+					<div class="modal fade" id="fontTable_1" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content" style="border:#3071a9 8px solid">
+								<div class="modal-header" style="background:#3071a9; color:#FFF">
+									<div class="glyphicon glyphicon-remove closeModal"
+										data-dismiss="modal"></div>
+									<h4 class="modal-title text-center" id="myModalLabel">基地申请详情</h4>
+								</div>
+
+								<div class="modal-body table-responsive">
+									<div class="row">
+										<div class="col-md-12">
+											<table class="table">
+												<tr>
+													<td>基地编号 ：</td>
+													<td><input type="text" id="baseid" disabled></td>
+													<td>基地类型 ：</td>
+													<td><input type="text" id="basetype" disabled></td>													
+												</tr>
+												<tr>
+												 <td>合作单位名称 ：</td>
+												 <td><input type="text" id="unitName" disabled ></td>
+												 <td>基地名称 ：</td>
+												 <td><input type="text" id="basename" disabled></td>	
+												</tr>
+												<tr>
+												   <td>申请部门 ：</td>
+													<td><input type="text" id="dept0" disabled></td>
+													<td>法定责任人 ：</td>
+													<td colspan="3"><input type="text" id="dutyPerson"
+														disabled></td>
+												</tr>
+												<tr>
+												    <td>联系人姓名 ：</td>
+													<td><input type="text" id="username" disabled></td>
+													<td>联系人电话 ：</td>
+													<td><input type="text" id="userphone" disabled></td>
+												</tr>
+                                                <tr>
+											       <td>服务团队负责人 ：</td>
+											       <td><input type="text" id="collegename"  disabled></td>
+											       <td>服务团队负责人电话 ：</td>
+											       <td><input type="text" id="collegephone"  disabled></td>
+											   </tr>
+
+												<tr>
+													<td>土地面积 ：</td>
+													<td><input type="text" id="landarea" disabled /></td>
+													<td>建筑面积 ：</td>
+													<td><input type="text" id="buildingarea" disabled></td>
+
+												</tr>
+												<tr>
+													<td>可承担人数 ：</td>
+													<td><input type="text" id="undertakeCount" disabled></td>
+													<td colspan="2"></td>
+												</tr>
+												
+
+												<tr hidden id="hidecol">
+													<td>创建日期：</td>
+													<td><input type="text" id="setdate" disabled></td>
+													<td>截止日期 ：</td>
+													<td><input type="text" id="validdate" disabled></td>
+												</tr>
+												<tr>
+													<td>面向专业 ：</td>
+													<td colspan="3" style="text-align:left;"><div
+															id="major_oriented"
+															style="border:#ccc 1px solid;height:80px;"></div></td>
+
+												</tr>
+
+												<tr>
+													<td>通信地址 ：</td>
+													<td colspan="3" style="text-align:left;"><div
+															id="linkAddress"
+															style="border:#ccc 1px solid;height:80px;"></div></td>
+
+												</tr>
+
+
+												<tr hidden id="hideReason">
+													<td>拒绝理由 ：</td>
+													<td colspan="3" style="text-align:left;"><div
+															id="reason" style="border:#ccc 1px solid;height:80px;"></div></td>
+
+												</tr>
+
+												<tr id="resourcetr">
+													<td>申请材料 ：</td>
+													<td colspan="3" style="text-align:left;"><a
+														id="resource" href="#" style="color:#3071a9;">点击查看</a></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer table-responsive">
+									<button type="button" class="btn btn-primary" id="closeDe" data-dismiss="modal">关闭</button>
 								</div>
 							</div>
 						</div>
 					</div>
 
 					<!--弹出框-->
-					<div class="modal fade" id="dateMyTable" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal fade" id="dateMyTable" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content" style="border:#3071a9 8px solid">
 								<div class="modal-header" style="background:#3071a9; color:#FFF">
-									<div id="cleark" class="glyphicon glyphicon-remove closeModal" data-dismiss="modal" ></div>
+									<div id="cleark" class="glyphicon glyphicon-remove closeModal"
+										data-dismiss="modal"></div>
 									<h4 class="modal-title text-center" id="myModalLabel">续期</h4>
 								</div>
 
@@ -362,13 +498,14 @@
 									<div class="row">
 										<div class="col-md-12">
 											<table class="table">
-											<tr> <td><input type="text" id="tag" hidden="hidden"/></td></tr>
-												<tr>												  
+												<tr>
+													<td><input type="text" id="tag" hidden="hidden" /></td>
+												</tr>
+												<tr>
 													<td>基地编号 ：</td>
 													<td><input type="text" id="baseidt" disabled></td>
 													<td>基地名称 ：</td>
 													<td><input type="text" id="basenamet" disabled></td>
-
 												</tr>
 												<tr>
 													<td>基地类型 ：</td>
@@ -377,40 +514,43 @@
 													<td><input type="text" id="dept0t" disabled></td>
 
 												</tr>
-
-
 												<tr>
 													<td>土地面积 ：</td>
 													<td><input type="text" id="landareat" disabled /></td>
 													<td>建筑面积 ：</td>
 													<td><input type="text" id="buildingareat" disabled></td>
-
 												</tr>
 												<tr>
 													<td>可承担人数 ：</td>
 													<td><input type="text" id="undertakeCountt" disabled></td>
-													<td>联系人姓名 ：</td>
-													<td><input type="text" id="usernamet" disabled></td>
-
-												</tr>
-												<tr>
-													<td>联系人电话 ：</td>
-													<td><input type="text" id="userphonet" disabled></td>
 													<td>法定责任人 ：</td>
 													<td colspan="3"><input type="text" id="dutyPersont"
-														disabled></td>
-
+														disabled></td>												
 												</tr>
 												<tr>
+												    <td>基地联系人 ：</td>
+													<td><input type="text" id="usernamet" disabled></td>
+													<td>基地联系人电话 ：</td>
+													<td><input type="text" id="userphonet" disabled></td>
+												</tr>
+												<tr>
+											      <td>学院联系人 ：</td>
+											      <td><input type="text" id="collegenamet" disabled ></td>
+											      <td>学院联系人电话 ：</td>
+											      <td><input type="text" id="collegephonet"  disabled></td>
+											    </tr>
+												<tr>
 													<td>面向专业 ：</td>
-													<td colspan="3" style="text-align:left;"><div id="major_orientedt"
+													<td colspan="3" style="text-align:left;"><div
+															id="major_orientedt"
 															style="border:#ccc 1px solid;height:80px;"></div></td>
 
 												</tr>
 
 												<tr>
 													<td>通信地址 ：</td>
-													<td colspan="3" style="text-align:left;"><div id="linkAddresst"
+													<td colspan="3" style="text-align:left;"><div
+															id="linkAddresst"
 															style="border:#ccc 1px solid;height:80px;"></div></td>
 
 												</tr>
@@ -423,7 +563,7 @@
 													<td>创建日期 ：</td>
 													<td><input type="text" id="starttime" disabled></td>
 													<td>截止日期 ：</td>
-													<td><input type="text" id="adddate"></td>												
+													<td><input type="text" id="adddate"></td>
 												</tr>
 											</table>
 										</div>
@@ -431,10 +571,113 @@
 								</div>
 								<div class="modal-footer table-responsive">
 									<center>
-								<button type="button" class="btn btn-primary" id="saveit">确认续期</button>
-								<button type="button" class="btn btn-default"
-									id="cleark" data-dismiss="modal">取消</button>
-							</center>
+										<button type="button" class="btn btn-primary" id="saveit">确认续期</button>
+										<button type="button" class="btn btn-default" id="cleark"
+											data-dismiss="modal">取消</button>
+									</center>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!--弹出框-->
+					<div class="modal fade" id="dateMyTable_nong" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content" style="border:#3071a9 8px solid">
+								<div class="modal-header" style="background:#3071a9; color:#FFF">
+									<div id="cleark" class="glyphicon glyphicon-remove closeModal"
+										data-dismiss="modal"></div>
+									<h4 class="modal-title text-center" id="myModalLabel">续期</h4>
+								</div>
+
+								<div class="modal-body table-responsive">
+									<div class="row">
+										<div class="col-md-12">
+											<table class="table">
+												<tr>
+													<td><input type="text" id="tag" hidden="hidden" /></td>
+												</tr>
+												<tr>
+													<td>基地编号 ：</td>
+													<td><input type="text" id="baseidt" disabled></td>
+													<td>基地类型 ：</td>
+													<td><input type="text" id="basetypet" disabled></td>
+													
+												</tr>
+												<tr>
+												    <td>合作单位名称 ：</td>
+												    <td><input type="text" id="unitNamet" disabled></td>
+													<td>基地名称 ：</td>
+													<td><input type="text" id="basenamet" disabled></td>
+												</tr>
+                                                <tr>
+                                                   <td>申请部门 ：</td>
+												   <td><input type="text" id="dept0t" disabled></td>
+												   <td>法定责任人 ：</td>
+												   <td><input type="text" id="dutyPersont"
+														disabled></td>
+                                                </tr>
+                                                <tr>
+												    <td>基地联系人 ：</td>
+													<td><input type="text" id="usernamet" disabled></td>												    
+													<td>基地联系人电话 ：</td>
+													<td><input type="text" id="userphonet" disabled></td>
+												</tr>
+												<tr>
+											       <td>服务团队负责人 ：</td>
+											       <td><input type="text" id="collegenamet"  disabled></td>
+											       <td>服务团队负责人电话 ：</td>
+											       <td><input type="text" id="collegephonet"  disabled></td>
+											    </tr>
+												<tr>
+													<td>土地面积 ：</td>
+													<td><input type="text" id="landareat" disabled /></td>
+													<td>建筑面积 ：</td>
+													<td><input type="text" id="buildingareat" disabled></td>
+												</tr>
+												<tr>
+													<td>可承担人数 ：</td>
+													<td><input type="text" id="undertakeCountt" disabled></td>
+													<td colspan="2"></td>
+												</tr>
+												
+												<tr>
+													<td>面向专业 ：</td>
+													<td colspan="3" style="text-align:left;"><div
+															id="major_orientedt"
+															style="border:#ccc 1px solid;height:80px;"></div></td>
+
+												</tr>
+
+												<tr>
+													<td>通信地址 ：</td>
+													<td colspan="3" style="text-align:left;"><div
+															id="linkAddresst"
+															style="border:#ccc 1px solid;height:80px;"></div></td>
+
+												</tr>
+												<tr id="resourcetrt">
+													<td>申请材料 ：</td>
+													<td colspan="3" style="text-align:left;"><a
+														id="resourcet" href="" style="color:#3071a9;">点击查看</a></td>
+												</tr>
+												<tr>
+													<td>创建日期 ：</td>
+													<td><input type="text" id="starttime" disabled></td>
+													<td>截止日期 ：</td>
+													<td><input type="text" id="adddate"></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer table-responsive">
+									<center>
+										<button type="button" class="btn btn-primary" id="saveit_nong">确认续期</button>
+										<button type="button" class="btn btn-default" id="cleark"
+											data-dismiss="modal">取消</button>
+									</center>
 								</div>
 							</div>
 						</div>
@@ -456,9 +699,9 @@
 														<form>
 															<table class="table">
 																<tr>
-																	<td>最终状态 <select name="status" id="status"
-																		style="width:150px;margin-top:0px;">
-																			<option value="-2" selected>显示全部</option>
+																	<td style="text-align:center">最终状态 <select
+																		name="status" id="status">
+																			<option value="-2">显示全部</option>
 																			<option value="6">申请成功</option>
 																			<option value="12">申请失败</option>
 																			<option value="17">过期失效</option>
@@ -467,7 +710,7 @@
 																	</td>
 																</tr>
 																<tr>
-																	<td colspan="2" style="text-align:center">
+																	<td style="text-align:center">
 																		<button type="reset" class="btn btn-primary">重置</button>
 																		<button type="button" class="btn btn-primary"
 																			id="finish">完成</button>
@@ -485,9 +728,9 @@
 									<th>基地名称</th>
 									<th>基地类型</th>
 									<th>申报部门</th>
-									<th>土地面积</th>
-									<th>建筑面积</th>
-									<th>可承担人数</th>
+									<th>法定责任人</th>
+									<th>基地联系人</th>
+									<th>基地联系人电话</th>
 									<th hidden>通信地址</th>
 									<th hidden>法定责任人</th>
 									<th hidden>联系人姓名</th>
@@ -517,6 +760,25 @@
 		</div>
 		<!--row end-->
 	</div>
+	
+	<div class="modal fade bs-example-modal-sm" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#3071a9; color:#FFF">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel">演示视频</h4>
+      </div>
+      <div class="modal-body text-center">
+ 	    <div class="row">   
+    		<div class="col-md-12 helpcolor"><a href="../audio/userMedia.rar">普通用户功能演示视频</a></div>
+  	   </div>
+  	   <div class="row" style="margin-top:20px;">
+  	 		 <div class="col-md-12 helpcolor"><a href="../audio/collegeMedia.rar">学院负责人功能演示视频</a></div>  
+  		</div>
+      </div>
+    </div>
+  </div>
+</div>
 	<div class="clearfix"></div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="../js/jquery.min.js"></script>
@@ -532,12 +794,11 @@
 	<script src="../js/bootbox.min.js"></script>
 	<script src="../js/myNeed/mybase.js"></script>
 	<script src="../js/kg.js"></script>
-    <script>
-                laydate.skin('yalan'); //切换皮肤，请查看skins下面皮肤库
-                laydate({
-                   elem: '#adddate'
-                })
-                
-    </script>
+	<script>
+		laydate.skin('yalan'); //切换皮肤，请查看skins下面皮肤库
+		laydate({
+			elem : '#adddate'
+		})
+	</script>
 </body>
 </html>

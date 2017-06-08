@@ -1,4 +1,4 @@
-package com.base.action;
+﻿package com.base.action;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +31,7 @@ import com.base.po.ApplyDept;
 import com.base.po.Major;
 import com.base.po.basetype;
 import com.base.service.baseApplyService;
+import com.base.utils.ApplyUtils;
 import com.base.utils.ExcelReport;
 
 /**
@@ -39,17 +40,17 @@ import com.base.utils.ExcelReport;
  * @author 梦醒何处
  * 
  */
+//实习申请控制层
 @Controller("BaseApplyController")
 @RequestMapping("/jsp")
 public class BaseApplyController {
     @Autowired
     private baseApplyService baseapplyservice;
     
-    //获得用户输入的数据
+    //提交用户的实习基地申请
     @RequestMapping("/getRequestBaseInfo.do")
     public String getRequestBaseInfo(HttpServletRequest request,
 	    HttpServletResponse response, ModelMap map) {
-	System.out.println("===================");
 	Cookie[] cookies = request.getCookies();// 获得所有cookie对象
 	for (Cookie co : cookies) {
 	    if (co.getName().equals("username")) {
@@ -59,13 +60,15 @@ public class BaseApplyController {
 		String str2 = "";
 		String name = request.getParameter("name");// 基地名称		
 		String type = request.getParameter("typeid");//基地类型id		
-		String landarea = request.getParameter("landarea");//基地面积		
-		if (landarea.equals("")) {
-		    landarea = null;
+		String landarea = request.getParameter("landarea");//基地面积	
+		String constructionarea = request.getParameter("constructionarea");//建筑面积
+		String landarea_select=request.getParameter("landarea_select");
+		String constructionarea_select=request.getParameter("constructionarea_select");
+		if(!landarea.equals("")){
+			landarea=landarea+landarea_select;
 		}
-		String constructionarea = request.getParameter("constructionarea");//建筑面积		
-		if (constructionarea.equals("")) {
-		    constructionarea = null;
+		if(!constructionarea.equals("")){
+			constructionarea=constructionarea+constructionarea_select;
 		}
 		String undertake = request.getParameter("undertake");//可承担人数		
 		if (undertake.equals("")) {
@@ -76,6 +79,9 @@ public class BaseApplyController {
 		String username = request.getParameter("username");// 联系人姓名		
 		String phone = request.getParameter("phone");// 联系人电话		
 		String lawPerson = request.getParameter("lawPerson");// 联系人电话
+		String collegeName=request.getParameter("collegeName");
+		String collegeTel=request.getParameter("collegeTel");
+		String unit=request.getParameter("unit");
 		// String material_path =
 		// request.getParameter("material_path");//
 		// 申请材料保存地址
@@ -91,8 +97,7 @@ public class BaseApplyController {
 			    .getRealPath("/material/");*/
 		   path = ExcelReport.getWebRootUrl(request,"/material/");
 		    // 得到上传的文件的文件名
-		    String fileName = mFile.getOriginalFilename();
-		    System.out.println(fileName);
+		    String fileName = mFile.getOriginalFilename();		    
 		    String fileType = fileName.substring(fileName
 			    .lastIndexOf("."));
 		    filename = new Date().getTime() + fileType;
@@ -130,21 +135,36 @@ public class BaseApplyController {
 		//获取当前		
 		  DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		  String time=format.format(d);
-		String Baseid = String.valueOf(d.getTime());		
-		str2 += "('" + Baseid + "','" + name + "'," + type + ","
-			+ landarea + "," + constructionarea + "," + undertake
+
+		//将获得的baseid自动生成首字母+时间 by jimao
+		  String applyTime = null;
+		  if(Integer.parseInt(type)== 1 ||Integer.parseInt(type)== 2){
+			  	String applyName = request.getParameter("applyName");
+				String firstspell = ApplyUtils.getFirstSpell(applyName);
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+				applyTime = firstspell+df.format(new Date());
+			  
+		  }else{
+			  applyTime = String.valueOf(d.getTime());
+		  }
+
+		String Baseid = applyTime;   //获得学院首字母+时间	
+		
+		str2 += "('" + Baseid + "','" + name + "'," + type + ",'"
+			+ landarea + "','" + constructionarea + "'," + undertake
 			+ "," + applyid + ",'" + land_address + "','"
 			+ username + "','" + phone + "','" + filename + "','"
-			+ userid +"','"+ time + "','"+lawPerson+"')";
-		System.out.println(str2+"拼装好的数据");
-
+			+ userid +"','"+ time + "','"+lawPerson+"','"+collegeName+"','"+collegeTel+"','"+unit+"')";
+		
 		/*------参数1-----------*/
 		String majorid[] = request.getParameterValues("majorid");// 专业id
 		String str1 = "";
 		StringBuffer sb = new StringBuffer();
 		if (majorid == null) {
 		    sb.append("(");
+		    sb.append("'");
 		    sb.append(Baseid);
+		    sb.append("'");
 		    sb.append(",");
 		    sb.append("-1");
 		    sb.append("),");
@@ -152,11 +172,15 @@ public class BaseApplyController {
 		    str1 = sb.toString();
 		} else {
 		    for (String string : majorid) {
-			System.out.println(string);
+			
 			sb.append("(");
+			sb.append("'");
 			sb.append(Baseid);
+			sb.append("'");
 			sb.append(",");
+			sb.append("'");
 			sb.append(string);
+			sb.append("'");
 			sb.append("),");
 		    }
 		    sb.deleteCharAt(sb.length() - 1);
@@ -167,9 +191,16 @@ public class BaseApplyController {
 		map.addAttribute("basename", name);
 		//String infostr="";
 		String infostr=JSONArray.fromObject(map).toString();		
-		baseapplyservice.getRequestBaseInfo(str1, str2,infostr);
-		request.setAttribute("index", 1);
+
+		String message=baseapplyservice.getRequestBaseInfo(str1, str2,infostr);
+		request.setAttribute("index", message);
 		response.setContentType("text/html;charset=UTF-8");
+		/*try {
+		    response.getWriter().print(message);
+		} catch (IOException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}*/
 		
 	    }
 	}
@@ -177,6 +208,7 @@ public class BaseApplyController {
 	return "baseApply";
 
     }
+    
     //获取学院和基地类型
     @RequestMapping("/BaseApplyAllInfo.do")
     public String BaseApplyInfo(HttpServletRequest request,
@@ -201,7 +233,8 @@ public class BaseApplyController {
 
 	return null;
     }
-    //获取部门
+    
+    //根据部门类型获取部门
     @RequestMapping("/getBaseSingleDept.do")
     public String getBaseSingleDept(HttpServletRequest request,
 	    HttpServletResponse response, ModelMap map) {
@@ -221,7 +254,8 @@ public class BaseApplyController {
 
 	return null;
     }
-    //根据学院id获取专业
+    
+    //根据学院编号获取专业
     @RequestMapping("/getMajor.do")
     public String getMajor(HttpServletRequest request,
 	    HttpServletResponse response, ModelMap map) {
@@ -238,24 +272,21 @@ public class BaseApplyController {
 	}
 	return null;
     }
+    
     //检测用户输入的基地名称是否存在
     @RequestMapping("/CheckName.do")
     public String CheckName(HttpServletRequest request,
 	    HttpServletResponse response, ModelMap map) {
 	boolean flag=false;
 	//获得用户输入的基地名称
-	String name=request.getParameter("name");
-	System.out.println(name+"什么名字");
+	String name=request.getParameter("name");	
 	//获得是否存在
-	int a=baseapplyservice.CheckName(name);
-	System.out.println(a+"到底是谁");
-	
+	int a=baseapplyservice.CheckName(name);	
 	if(a==0){
 	    flag=false;
 	}else{
 	    flag=true;
-	}
-	System.out.println(flag+"shenme");
+	}	
 	response.setContentType("text/html;charset=UTF-8");
 	try {
 	   // JSONObject json=new JSONObject();	   

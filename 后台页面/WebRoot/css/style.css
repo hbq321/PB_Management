@@ -287,6 +287,9 @@ a, a:link, a:visited, a:hover, a:active {
 .hidden-xs, .hidden-sm, .hidden-md, .hidden-lg {
     display: inline-block !important;
 }
+.hidden-xs, .hidden-sm a{
+	cursor: pointer;
+}
 .teachCenterTitle {
     font-size: 20px;
     margin-top: 5px;
@@ -341,7 +344,8 @@ a, a:link, a:visited, a:hover, a:active {
 	overflow-x: hidden;
 	overflow-y: scroll;
 	width: 270px;
-	min-height: 800px;
+	height: 400px;
+	min-height: 530px;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
 	background-color: transparent;
@@ -695,6 +699,15 @@ padding: 50px 40px;
 }
 }
 
+.helpcolor a{
+	color:#000;
+	font-size:18px;
+
+}
+
+.helpcolor a:hover{	
+	text-decoration: underline;
+}
 
 #jumpTo{
   width: 40px;
@@ -703,3 +716,4 @@ padding: 50px 40px;
 	float:right;
 	cursor:pointer;
 }
+

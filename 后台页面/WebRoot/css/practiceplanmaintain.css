@@ -16,35 +16,53 @@ table tbody tr td{
 	text-align:center;
 	cursor: pointer;
 }
-#Applychart{
+#showtable{
+	margin-bottom:3px !important;
+}
+#showtable tr td{
+	border: none;
+	text-align:left;
+}
+#addPraItem{
 	position:absolute !important;
-	top:187px;
+	top:150px;
+	left:40%;
+	display:none;
+}
+
+#updatePlanItem{
+	position:absolute !important;
+	top:150px;
+	left:40%;
+	display:none;
+}
+
+#Applychart{
+	position:fixed !important;
+	top:112px;
 	left:19%;
 	width: 80%;
 	display: none;	
 }
+
 #modalcontent{
 	margin-top: 20%;
 }
 .noborder{
-	border: none;
-	width: 80px;
+	border: none !important;
+	
 }
 #classname{
 	border: none;
-	width: 100px;
 }
 #grade{
 	border: none;
-	width: 40px;
 }
 #number{
 	border: none;
-	width: 40px;
 }
 #weeks{
 	border: none;
-	width: 40px;
 }
 #practiceapplytable span{
 	cursor:pointer;
@@ -52,7 +70,7 @@ table tbody tr td{
 	color:#24354a;}
 
 .inputWidth{
-	width: 60px;
+	width: 80px;
 }
 #Leaderteacher{
 	width: 100%;
@@ -93,6 +111,7 @@ table tbody tr td{
 }
 #table select{
 	line-height: 23px !important;
+	width: 100%;
 }
 .spanstyle{
 	font-size: 10px;
@@ -101,8 +120,9 @@ table tbody tr td{
 .starColor{
 	color: #F70004;
 }
-.padding{
-	margin-left: 4% !important;
+
+#class{
+	width:82%;
 }
 .setTag{
 	color: #F70004;
@@ -122,6 +142,105 @@ table tbody tr td{
 		background-color: #F7F7F7;
 	}
 
+.laydate_yms {
+	width:123px !important;
+}
 
-
-
+.modalbody{
+	height:432px;
+	overflow-y:auto;
+	}
+.modalbody2{
+	height:592px;
+	overflow-y:auto;
+	}
+.modalbody3{
+	height:652px;
+	overflow-y:auto;
+	}
+#Stime{
+	height:35px;
+}
+#Etime{
+	height:35px;
+}
+.startweek{
+	width:100px;
+}
+.endweek{
+	width:100px;
+}
+div.Iwidth{
+	width:100% !important;
+}
+#chu{
+	float:right;
+	margin-left:5px;
+}
+#daoru{
+	float:right;
+	margin-left:5px;
+}
+#LinkButton{
+	float:right;
+	margin-left:5px;
+}
+#checkIsSave{
+	float:right;
+	margin-left:5px;
+}
+#remind{
+	display:block;
+	float:right;
+	color:#3EAB58;
+	padding-top:10px;
+	font-size:20px;
+}
+#add{
+	display:block;
+	float:right;
+	margin-left:5px;
+}
+#delete{
+	display:block;
+	float:right;
+	margin-left:5px;
+}
+#updatePlan{
+	display:block;
+	float:right;
+	margin-left:5px;
+}
+#add{
+	display:block;
+	float:right;
+	margin-left:5px;
+}
+#divweek,#divgrade{
+	position: relative;
+}
+#weekend,#class_one{
+	width:80%;
+}
+.showWeek,.showGrade{
+	display: none;
+	width: 80%;
+	position: absolute;
+	top: 25px;
+	left: 16px;
+	background:#FFF;
+	z-index:9999;
+}
+#ul1,#ul2{
+	text-align: center;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+li{
+	list-style:none;
+}
+.libg1,libg2{
+	background: #3071a9;
+	color: #fff;
+}
